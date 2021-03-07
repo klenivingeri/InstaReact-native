@@ -21,52 +21,58 @@ import {
       this.state = {
         feed : [
           { id: '1',
-            nome:'Erick',
-            descricao: 'Mais um dia de muitos bugs',
-            imgPerfil: './src/img/perfil1.png',
-            imgPublicacao:'./src/img/public1.jpg',
+            nome:'Goku',
+            descricao: 'Preciso comer muito para ficar forte, amanhã tenho ...',
+            imgPerfil: 'https://observatoriodeseries.uol.com.br/wp-content/uploads/2020/05/Novo-Projeto-65.jpg',
+            imgPublicacao:'https://www.einerd.com.br/wp-content/uploads/2016/11/Goku-Come-a-Nuvem.jpg',
             Likeada: false,
-            likers: 0
+            likers: 0,
+            quemCurtiu: 'Gohan'
           },
           { id: '2',
-            nome:'Jenifer',
-            descricao: 'Mais um dia de muitos bugs',
-            imgPerfil: './src/img/perfil2.png',
-            imgPublicacao:'./src/img/public2.jpg',
+            nome:'Piccolo',
+            descricao: 'Aquele que é feliz, espalha felicidade. Aquele ...',
+            imgPerfil: 'https://i.pinimg.com/originals/13/be/b8/13beb81e78b6f9e625a3b27cf1d1f2f1.jpg',
+            imgPublicacao:'https://img.quizur.com/f/img5f2daba74cf2d6.95848933.jpg?lastEdited=1596828587',
             Likeada: false,
-            likers: 0
+            likers: 0,
+            quemCurtiu: 'Majin boo'
           },
           { id: '3',
-            nome:'Maria',
-            descricao: 'Mais um dia de muitos bugs',
-            imgPerfil: './src/img/perfil3.png',
-            imgPublicacao:'./src/img/public3.jpg',
+            nome:'Vegeta',
+            descricao: 'Nossas dúvidas são traidoras e nos fazem perder ...',
+            imgPerfil: 'https://i1.wp.com/oportaln10.com.br/jerimumgeek/wp-content/uploads/2017/12/vegeta-dragon-ball-Z.jpg?resize=1153%2C798&ssl=1',
+            imgPublicacao:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaEfmwEcWqSwvuRe-ep3LKF-zZu-Q1xPdIXA&usqp=CAU',
             Likeada: false,
-            likers: 0
+            likers: 0,
+            quemCurtiu: 'Gohan'
           },
           { id: '4',
-            nome:'Gu',
-            descricao: 'Mais um dia de muitos bugs',
-            imgPerfil: './src/img/perfil4.png',
-            imgPublicacao:'./src/img/public4.jpg',
+            nome:'Titi',
+            descricao: 'Mais um dia de muitos bugs, desse jeito vou pre ...',
+            imgPerfil: 'https://www.einerd.com.br/wp-content/uploads/2020/11/Chichi-Dragon-Ball-2.jpg',
+            imgPublicacao:'http://pm1.narvii.com/6611/b8804948c26a9c42466d6b2048985c35a72ac185_00.jpg',
             Likeada: false,
-            likers: 0
+            likers: 0,
+            quemCurtiu: 'Frezza'
           }
           ,{ id: '5',
-          nome:'Biel',
-          descricao: 'Mais um dia de muitos bugs',
-          imgPerfil: './src/img/perfil5.png',
-          imgPublicacao:'./src/img/public5.jpg',
+          nome:'Kuririn',
+          descricao: 'Nossas dúvidas são traidoras e nos fazem perder ...',
+          imgPerfil: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaql9hN9RD6SyoEw9Jro0UbeNmuuwWSBjEqA&usqp=CAU',
+          imgPublicacao:'https://pm1.narvii.com/6301/022c21070f32e21f0995dfcd4a93fae78ad9e72b_hq.jpg',
           Likeada: false,
-          likers: 0
+          likers: 0,
+          quemCurtiu: 'Gohan'
         },
         { id: '6',
-            nome:'Manu',
-            descricao: 'Mais um dia de muitos bugs',
-            imgPerfil: './src/img/perfil6.png',
-            imgPublicacao:'./src/img/public6.jpg',
+            nome:'Bulma',
+            descricao: 'Aquele que é feliz, espalha felicidade. Aquele ...',
+            imgPerfil: 'https://dropsdejogos.uai.com.br/wp-content/uploads/sites/10/2019/09/bulma-1280x720.jpg',
+            imgPublicacao:'https://live.staticflickr.com/6062/6022946614_fc2b8dc978_z.jpg',
             Likeada: false,
-            likers: 0
+            likers: 0,
+            quemCurtiu: 'Trunks'
           },
     
         ]
@@ -93,8 +99,10 @@ import {
             style={styles.send} />
           </TouchableOpacity>
         </View>
+
         <FlatList 
         showsHorizontalScrollIndicator={false}
+        keyExtractor={ (item) => item.id}
         data={ this.state.feed}
         renderItem={ ({item}) => <Lista data={item} /> } />
 
