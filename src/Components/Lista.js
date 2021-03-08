@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import {View, Text, Image, TouchableOpacitya, StyleSheet, TouchableOpacity} from 'react-native'
+import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native'
 
 class Lista extends Component{
     constructor(props){
@@ -8,8 +8,76 @@ class Lista extends Component{
         this.state = {
             feed : this.props.data
         }
+
+        this.mostraLikes = this.mostraLikes.bind(this);
+        this.like = this.like.bind(this);
+        this.save = this.save.bind(this);
+        this.carregaItem = this.carregaItem.bind(this)
+        this.carregaItemSalva = this.carregaItemSalva.bind(this)
+
     }
+    carregaItemSalva(save){
+        return  save ? require('../img/salvac.png') : require('../img/salva.png')
+
+    }
+    carregaItem(likers){
+
+
+            return  likers ? require('../img/ccheio.png') : require('../img/cvazio.png')
         
+    }
+
+    save(){
+        let feed = this.state.feed;
+        if(feed.save === true){
+            this.setState({
+                feed:{
+                    ...feed,
+                    save: false,
+                }
+            })
+        }else{
+            this.setState({
+                feed:{
+                    ...feed,
+                    save: true,
+                }
+            })
+        }
+
+    }
+    like(){
+        let feed = this.state.feed;
+        if(feed.Likeada === true){
+            this.setState({
+                feed:{
+                    ...feed,
+                    Likeada: false,
+                    likers: feed.likers - 1
+                }
+            })
+        }else{
+            this.setState({
+                feed:{
+                    ...feed,
+                    Likeada: true,
+                    likers: feed.likers + 1
+                }
+            })
+        }
+    }
+    mostraLikes(likers){
+        let feed = this.state.feed;
+
+        if(feed.likers <= 0){
+            return;
+        }
+        return(
+            <Text style={styles.curtidas}>
+                {feed.likers} { feed.likers > 1 ? ` Curtidas, ${feed.quemCurtiu} e outros personagens` : `Curtiu ${feed.quemCurtiu}`}
+            </Text>
+        )
+    }
 
     render(){
         return(
@@ -28,44 +96,48 @@ class Lista extends Component{
 
                 
                 <View style={styles.cRodape}>
-
-                <View style={styles.areaBtn}>
-                    <TouchableOpacity>
-                        <Image 
-                            style={styles.iconeLike}
-                            source={require('../img/cvazio.png')} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.btnSend}>
-                        <Image 
-                        style={styles.iconeLike}
-                        source={require('../img/msg.png')} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.btnSend}>
-                        <Image 
-                        style={styles.iconeLike}
-                        source={require('../img/send2.png')} />
-                    </TouchableOpacity>
+                    <View style={styles.areaBtn}>
+                        <TouchableOpacity onPress={this.like}>
+                            <Image 
+                                style={styles.iconeLike}
+                                source={this.carregaItem(this.state.feed.Likeada)}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.btnSend}>
+                            <Image 
+                                style={styles.iconeLike}
+                                source={require('../img/msg.png')} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.btnSend}>
+                            <Image 
+                                style={styles.iconeLike}
+                                source={require('../img/send2.png')} />
+                        </TouchableOpacity>
                     </View>
 
                     <View style={styles.areaBtn}>
-                    <TouchableOpacity style={styles.btnSend}>
-                        <Image 
-                        style={styles.iconeLike}
-                        source={require('../img/salva.png')} />
-                    </TouchableOpacity>
+                        <TouchableOpacity style={styles.btnSend} onPress={this.save}>
+                            <Image 
+                                style={styles.iconeLike}
+                                
+                                source={this.carregaItemSalva(this.state.feed.save)} />
+                        </TouchableOpacity>
                     </View>
                 </View>
-                <Text style={styles.quemCurtiu}>Curtido por {this.state.feed.quemCurtiu} e outros personagem</Text>
-                    
+
+
+                <Text style={styles.quemCurtiu}> 
+                { this.mostraLikes(this.state.feed.likers)}
+                 </Text>
+                   
+
                 <View style={styles.viewRodape}>
-                    <Text style={styles.nomeRodape}>
-                        {this.state.feed.nome} 
-                    </Text>
                     <Text style={styles.descRodape}>
-                    {this.state.feed.descricao} 
+                        <Text style={styles.nomeRodape}>
+                            {this.state.feed.nome}
+                        </Text>
+                    
+                        {this.state.feed.descricao} 
                     </Text>
-
-
                 </View>
                     
                 
@@ -86,13 +158,14 @@ const styles = StyleSheet.create({
 
     },
     nomeUsuario:{
-        fontSize: 22,
+        fontSize: 20,
         textAlign:'left',
-        color: '#000'
+        color: '#000',
+        paddingLeft: 6
     },
     fotoPerfil:{
-        width:50,
-        height:50,
+        width:35,
+        height:35,
         borderRadius:25
     },
     fotoPublic:{
@@ -113,7 +186,7 @@ const styles = StyleSheet.create({
         paddingLeft:5
     },
     quemCurtiu:{
-        paddingLeft:3,
+        paddingLeft:5,
         fontSize: 13,
         
     },
@@ -130,15 +203,21 @@ const styles = StyleSheet.create({
         paddingLeft: 2
     },
     descRodape:{
-        paddingLeft:5,
+   
         fontSize: 15,
         color: '#000',
+        paddingLeft:3
 
     },
     nomeRodape:{
         fontWeight: 'bold',
-        fontSize:17
+        fontSize:17,
+        margin: 6,
+        padding:4
  
+    },
+    curtidas:{
+        fontWeight:'bold'
     }
  
 
